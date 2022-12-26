@@ -18,7 +18,7 @@ class MY_Controller extends CI_Controller
         $this->image_user = $this->session->userdata("image_user");
 		$this->user_remote = $this->user_remote("user_remote");
 		$this->server = $this->user_remote("server");
-        $this->token_telegram = '5915969600:AAFhpKJhtMY6Nsp-qp7c-NsSlrY84-lwCEs';
+        $this->token_telegram = '5850968144:AAH8HE-671nVdE1BqvE5q70aHCgHzTnvBwc';
     }
 	public function swal($title, $text, $icon)
 	{
@@ -57,7 +57,7 @@ class MY_Controller extends CI_Controller
         if(!empty($chat_id->id)){
             $chat_id = $chat_id->id_telegram;
         }else{
-            $chat_id = '1313520747';
+            $chat_id = '-639123324';
         };
         $text = $pesan;
         $response = file_get_contents("https://api.telegram.org/bot".$apiToken."/sendMessage?chat_id=".$chat_id."&text=".$text);
@@ -91,7 +91,7 @@ class MY_Controller extends CI_Controller
                 if($proses == "ppp_secret"){
                     if(!empty($data)){
                         $API->comm('/ppp/secret/add', array(
-                            'local-address' => '27.27.27.1',
+                            'local-address' => '10.0.0.0',
                             'name' => $data["name"],
                             'password' => $data["password"],
                             'profile' => 'default',
@@ -117,11 +117,12 @@ Password : '.$data["password"]);
                 if($proses == "scheduler"){
                     $proses = $API->comm('/system/scheduler/add', array(
                         'name' => $data["name"],
-                        'on-event' => '/ppp secret set [find name='.$data["name"].'] dis=yes; /ppp active remove [find name='.$data["name"].']; /system sche remove  [find name='.$data["name"].']; /ip firewall nat remove [ find comment='.$data["name"].'];',
+                        'on-event' => '/ppp secret set [find name='.$data["name"].'] dis=yes; /ppp active remove [find name='.$data["name"].']; /system sche remove  [find name='.$data["name"].']; /ip firewall nat disable [ find comment='.$data["name"].'];',
                         'policy' => 'ftp,reboot,read,write,policy,test,password,sniff,sensitive',
                         'start-date' => $data["start_date"],
-                        'start-time' => '00:01:00',
+                        'start-time' => '00:05:00',
                         'disabled' => 'no',
+                        'comment' => $data["name"],
                     ));
                     $data_sheduler = $API->comm('/system/scheduler/print');
                     $search_data = $this->search_array($data_sheduler,"name",$data["name"]);

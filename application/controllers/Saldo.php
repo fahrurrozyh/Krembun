@@ -30,7 +30,7 @@ class Saldo extends MY_Controller
                 if(!empty($chat_id->id)){
                     $chat_id = $chat_id->id_telegram;
                 }else{
-                    $chat_id = '1313520747';
+                    $chat_id = '-639123324';
                 };
 
                 $get_user = $this->model->gd("top_up","*,(SELECT name FROM user WHERE id = id_user) as name,(SELECT email FROM user WHERE id = id_user) as email","id = '".$id_top_up."'","row");

@@ -81,10 +81,13 @@ class VPN extends MY_Controller
                                     "port" => $this->input->post("port"),
                                     "tanggal_order" => date("Y-m-d"),
                                     "berlangganan" => $this->input->post("berlangganan"),
-                                    "expired_date" => date("Y-m-d",strtotime("+".$this->input->post("berlangganan")." month")),
+                                    // MENGATUR MASA BERLANGGANAN (START)
+                                    "expired_date" => date("Y-m-d",strtotime("+".$this->input->post("berlangganan")." day")), 
+                                    // MENGATUR MASA BERLANGGANAN (END)
                                     "status" => "Aktif",
                                     "harga_beli" => $harga_vpn->harga*$this->input->post("berlangganan"),
                                     "status_debit" => $this->input->post("status_debit"),
+                                    "remote_address" => $address,
                                 ];
                                 $saldo_now = $this->model->gd("user","saldo","id = '".$this->id_user."'","row");
                                 $saldo_akhir = $saldo_now->saldo - $data["harga_beli"];
@@ -338,7 +341,7 @@ class VPN extends MY_Controller
                                 Username : '.$get_data->username.'<br>
                                 Password : '.$get_data->password.'<br><br>
                                 Berhasil untuk di lakukan perpanjangan secara otomatis.<br>
-                                Sehinggan untuk expired date nya menjadi '.date("d-M-Y",strtotime($get_data->expired_date));
+                                Sehingga untuk expired date nya menjadi '.date("d-M-Y",strtotime($get_data->expired_date));
             
                                 $this->email->set_newline("\r\n");
                                 $this->email->from($from);

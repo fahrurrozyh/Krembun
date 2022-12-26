@@ -1,6 +1,6 @@
 <!-- Begin Page Content -->
 <?php
-$data = $this->model->join3table("data_order a","user b","vpn_master c","a.id_user = b.id","a.id_server = c.id","a.status_debit,a.id,c.harga,b.name,b.email,a.nomor_order,c.id_server,a.username,a.password,a.port,a.tanggal_order,a.berlangganan,a.expired_date,a.status","a.deleted_date IS NULL AND a.id = '".$id_order."'","row");
+$data = $this->model->join3table("data_order a","user b","vpn_master c","a.id_user = b.id","a.id_server = c.id","a.status_debit,a.id,c.harga,b.name,b.email,a.nomor_order,c.id_server,a.username,a.password,a.port,a.tanggal_order,a.berlangganan,a.expired_date,a.remote_address,a.status","a.deleted_date IS NULL AND a.id = '".$id_order."'","row");
 if(!empty($data)){
     if($data->status == "Aktif"){
         $status = '<p class="badge badge-success">Aktif</p>';
@@ -71,7 +71,7 @@ if(!empty($data)){
                                         <br>
                                         <small>Silahkan copy script ke terminal.</small>
                                     </p>
-                                    <code id="code_pelanggan">/interface l2tp-client add connect-to=vpn.nzmwifi.my.id name=<?= $data->username; ?> password=<?= $data->password; ?> user=<?= $data->username; ?> disabled=no comment=vpn.nzmwifi.my.id:<?= ip_number($data->nomor_order-1); ?><-><?= $data->port; ?>*exp-<?= strtolower(date("M/d/Y",strtotime($data->expired_date))); ?></code>
+                                    <code id="code_pelanggan">/interface l2tp-client add connect-to=sg1.fazznet.id name=<?= $data->username; ?> password=<?= $data->password; ?> user=<?= $data->username; ?> disabled=no comment=vpn.nzmwifi.my.id:<?= ip_number($data->nomor_order-1); ?><-><?= $data->port; ?>*exp-<?= strtolower(date("M/d/Y",strtotime($data->expired_date))); ?></code>
                                     <div class="mt-2 w-100" align="right"><a href="javascript:void(0)" onclick="copyDivToClipboard()" class="btn btn-sm btn-white" title="Copy to Clipboard"><i class="fa-regular fa-copy"></i></a></div>
                                 </div>
                                 <div class="tab-pane fade" id="control" role="tabpanel" aria-labelledby="nav-control">
@@ -198,20 +198,13 @@ if(!empty($data)){
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="text">
-                                        <i class="fas fa-laptop-house fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="URL REMOTE" aria-hidden="true"></i> URL Remote : </label>
-                                    <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <?php
-                                        $address_ip = ip_number($data->nomor_order-1);
-                                        ?>
-                                        <span class="badge badge-info" data-toggle="tooltip" data-original-title="URL Remote"><?= $data->id_server.".".$this->server.":".$address_ip; ?></span>
-                                        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
-                                        <span class="badge badge-success" data-toggle="tooltip" data-original-title="Port Yang diremote"><?=$data->port;?></span>
-                                    </div>
+                                        <i class="fas fa-server fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="Server" aria-hidden="true"></i> IP Server : </label>
+                                    <div class="col-sm-12 mb-3 mb-sm-0"> <?= $data->id_server; ?> </div>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="text">
-                                        <i class="fas fa-server fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="Server" aria-hidden="true"></i> Server : </label>
-                                    <div class="col-sm-12 mb-3 mb-sm-0"> 103.189.234.43 </div>
+                                        <i class="fas fa-server fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="Server" aria-hidden="true"></i> IP Local : </label>
+                                    <div class="col-sm-12 mb-3 mb-sm-0"> <?= $data->remote_address; ?> </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -229,7 +222,19 @@ if(!empty($data)){
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-6 ">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="text">
+                                        <i class="fas fa-laptop-house fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="URL REMOTE" aria-hidden="true"></i> URL Remote : </label>
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <?php
+                                        $address_ip = ip_number($data->nomor_order-1);
+                                        ?>
+                                        <span class="badge badge-info" data-toggle="tooltip" data-original-title="URL Remote"><?= $data->id_server.".".$this->server.":".$address_ip; ?></span>
+                                        <i class="fas fa-arrows-alt-h" aria-hidden="true"></i>
+                                        <span class="badge badge-success" data-toggle="tooltip" data-original-title="Port Yang diremote"><?=$data->port;?></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="text">
                                         <i class="fas fa-history fa-fw" style="font-size:13px;" data-toggle="tooltip" data-original-title="Perpanjang Otomatis" aria-hidden="true"></i> Perpanjang Otomatis : </label>
                                     <div class="col-sm-12 mb-3 mb-sm-0"> <?= $status_debit; ?> </div>
