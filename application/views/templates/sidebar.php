@@ -101,7 +101,7 @@ if(empty($this->id_user)){
         <li class="nav-item <?php if($this->p1 == "routeros"){ echo "active"; } ?>">
             <a class="nav-link" href="<?= base_url('routeros/list'); ?>">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Winbox Account</span></a>
+                <span>Mikrotik Account</span></a>
         </li>
         <li class="nav-item <?php if($this->p1 == "list_payment"){ echo "active"; } ?>">
             <a class="nav-link" href="<?= base_url('list_payment'); ?>">

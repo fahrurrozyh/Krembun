@@ -184,7 +184,7 @@ class Admin extends MY_Controller
     public function routeros($p)
     {
         if($p == "list"){
-            $data['nzm'] = 'List Winbox';
+            $data['nzm'] = 'List Mikrotik';
             $data["js_add"] = "list_routeros";
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar');
@@ -193,7 +193,7 @@ class Admin extends MY_Controller
             $this->load->view('templates/footer', $data);
         }else{
             if($p == "0"){
-                $data['nzm'] = 'Add Winbox';
+                $data['nzm'] = 'Add Mikrotik';
                 $data["js_add"] = "routeros_edit";
                 $this->load->view('templates/header', $data);
                 $this->load->view('templates/sidebar');
@@ -201,7 +201,7 @@ class Admin extends MY_Controller
                 $this->load->view('admin/routeros_edit', $data);
                 $this->load->view('templates/footer', $data);
             }else{
-                $data['nzm'] = 'Edit Winbox';
+                $data['nzm'] = 'Edit Mikrotik';
                 $data["js_add"] = "routeros_edit";
                 $data["id"] = d_nzm($p);
                 $this->load->view('templates/header', $data);
