@@ -6,7 +6,7 @@ class Admin extends MY_Controller
 
     public function index()
     {
-        $data['nzm'] = 'Admin NZM';
+        $data['nzm'] = 'FAZZNET';
         $data["js_add"] = "index";
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
